@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  nginx:
+    ports:
+      - 443:443
+    build:
+      context: requirements/nginx
+    env_file:
+      - .env
+  
+
+  mariadb:
+    env_file:
+      - .env
+    # volumes:
+    #   - data:/var/lib/mysql
+    build:
+      context: requirements/mariadb
+    ports:
+      - "3306"
