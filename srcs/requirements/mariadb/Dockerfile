@@ -13,11 +13,12 @@ RUN apt install -y mariadb-server
 COPY tools ./tools
 
 RUN chmod +x ./tools/sql_script.sh
-# CMD ["/bin/bash", "-l"]
 
-# ENTRYPOINT	["./tools/sql_script.sh"]
+ENTRYPOINT	["./tools/sql_script.sh"]
 
-CMD ["./tools/sql_script.sh"]
+CMD ["mysqld_safe"]
+
+
 
 
 

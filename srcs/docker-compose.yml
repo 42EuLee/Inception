@@ -2,20 +2,32 @@ version: "3"
 
 services:
   nginx:
+    container_name: nginx_con
     ports:
       - 443:443
+    volumes:
+      - /Users/leu-lee/Inception/data/Wordpress:/var/www/html/wordpress/
     build:
       context: requirements/nginx
+  wordpress:
+    container_name: wordpress_con
     env_file:
       - .env
-  
-
+    expose:
+      - "9000"
+    volumes:
+      - /Users/leu-lee/Inception/data/Wordpress:/var/www/html/wordpress/
+    build:
+      context: requirements/wordpress
+    
   mariadb:
+    container_name: mariadb_con
     env_file:
       - .env
-    # volumes:
-    #   - data:/var/lib/mysql
+    volumes:
+      - /Users/leu-lee/Inception/data/DB:/var/lib/mysql # please change this later
     build:
       context: requirements/mariadb
-    ports:
+    expose:
       - "3306"
+  

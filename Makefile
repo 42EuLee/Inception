@@ -9,16 +9,20 @@ all:
 # docker run --name Yunzhe-oh-wait -i -t nginx /bin/bash
 
 run:
-	cd srcs && docker-compose run -p 443:443 nginx  && cd ..
+	cd srcs && docker-compose up -d nginx && cd ..
 run2:
-	cd srcs && docker-compose run -p 443:443 mariadb  && cd ..
+	cd srcs && docker-compose up -d mariadb && cd ..
+run3:
+	cd srcs && docker-compose up -d wordpress && cd ..
+runall:
+	cd srcs && docker-compose up -d && cd .. 
 
 debug:
 	docker logs --tail 10 yunzhe-oh`-wait
 # cd iwannadie && docker build -t docker .
 
 down:
-	cd srcs && docker-compose down && cd ..
+	cd srcs && docker-compose down --rmi all && cd ..
 
 exec:
 	docker exec -it srcs_mariadb_run_1 bash
@@ -26,8 +30,8 @@ exec:
 clean:
 	docker system prune -f
 
-fclean:
-	docker rm `docker ps -a -q`
+fclean: clean
+	rm -rf /Users/leu-lee/Inception/data/
 
 # re: fclean all
 
