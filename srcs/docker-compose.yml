@@ -2,32 +2,57 @@ version: "3"
 
 services:
   nginx:
+    depends_on:
+      - wordpress
+    image: nginx:buster
     container_name: nginx_con
     ports:
       - 443:443
     volumes:
-      - /Users/leu-lee/Inception/data/Wordpress:/var/www/html/wordpress/
+      - /Users/${LOGNAME}/data/wordpress:/var/www/html/wordpress/
     build:
       context: requirements/nginx
+    restart: on-failure
+    networks:
+      - inception
+
   wordpress:
+    depends_on:
+      - mariadb
+    image: wordpress:buster
     container_name: wordpress_con
     env_file:
       - .env
     expose:
       - "9000"
     volumes:
-      - /Users/leu-lee/Inception/data/Wordpress:/var/www/html/wordpress/
+      # - /Users/leu-lee/Inception/data/Wordpress:/var/www/html/wordpress/
+      - /Users/${LOGNAME}/data/wordpress:/var/www/html/wordpress/
     build:
       context: requirements/wordpress
+    restart: on-failure
+    networks:
+      - inception
     
   mariadb:
+    image: mariadb:buster
     container_name: mariadb_con
     env_file:
       - .env
     volumes:
-      - /Users/leu-lee/Inception/data/DB:/var/lib/mysql # please change this later
+      # - /Users/leu-lee/Inception/data/DB:/var/lib/mysql
+      - /Users/${LOGNAME}/data/mariadb:/var/lib/mysql
+
     build:
       context: requirements/mariadb
     expose:
       - "3306"
+    restart: on-failure
+    networks:
+      - inception
+
+networks:
+    inception:
+        driver: bridge
+            
   

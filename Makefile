@@ -1,6 +1,5 @@
 NAME		=	derp
 RM			=	rm -rf
-MKDIR		=	mkdir -p
 SRC_PATH	=	srcs
 
 
@@ -31,8 +30,8 @@ clean:
 	docker system prune -f
 
 fclean: clean
-	rm -rf /Users/leu-lee/Inception/data/
+	rm -rf /Users/$(LOGNAME)/data
 
-# re: fclean all
+re: fclean all
 
-# .PHONY = all clean fclean re
+.PHONY = all clean fclean re

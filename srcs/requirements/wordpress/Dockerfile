@@ -2,8 +2,6 @@
 
 FROM debian:buster
 
-RUN mkdir -p /app
-
 RUN apt-get -y update
 
 RUN apt-get -y install curl
@@ -15,8 +13,6 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 RUN chmod +x wp-cli.phar
 
 RUN mv wp-cli.phar /usr/local/bin/wp
-
-# RUN wp core download --path=wpdemo.test --locale=it_IT --allow-root
 
 COPY tools ./tools
 

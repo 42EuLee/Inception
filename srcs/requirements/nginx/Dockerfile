@@ -26,18 +26,9 @@ RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout localhost.key -o
 
 RUN cp localhost.crt /etc/ssl/certs/localhost.crt
 RUN cp localhost.key /etc/ssl/private/localhost.key
-# RUN service nginx reload
-
-
-
-# RUN echo 'Hi, I am in your container' \
-# >/usr/share/nginx/html/index.html
 
 EXPOSE 443
 
-# VOLUME /usr/share/nginx/html
-# VOLUME /etc/nginx
-
-# CMD ["/bin/bash", "-l"]
+# VOLUME /var/www/html/wordpress/
 
 CMD ["nginx", "-g", "daemon off;"]

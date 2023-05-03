@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ -f "/var/www/html/wp-config.php" ]
+if [ -f "/var/lib/mysql/$M" ]
 then
 	echo "Wordpress already exist"
 
@@ -19,6 +19,8 @@ else
 
 	chown -R www-data:www-data /var/www/html/wordpress/wp-content/uploads/
 
+	rm latest.tar.gz
+
 	cd /var/www/html/wordpress/
 
 	cp wp-config-sample.php wp-config.php
@@ -35,6 +37,5 @@ else
 fi
 sed -i s/\\/run\\/php\\/php7\\.3-fpm\\.sock/9000/ /etc/php/7.3/fpm/pool.d/www.conf
 mkdir -p /run/php/
-
 
 exec $@
